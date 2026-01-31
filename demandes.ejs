@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Demandes de congés</title>
+</head>
+<body>
+
+<h1>Liste des demandes de congés</h1>
+
+<a href="/conges/new">Nouvelle demande</a>
+
+
+    <thead>
+        <tr>
+            <th>Employé</th>
+            <th>Date début</th>
+            <th>Date fin</th>
+            <th>Motif</th>
+            <th>Statut</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <% if (conges && conges.length > 0) { %>
+            <% conges.forEach(conge => { %>
+                <tr>
+                    <td><%= conge.employee_code %></td>
+                    <td><%= conge.start_date %></td>
+                    <td><%= conge.end_date %></td>
+                    <td><%= conge.motif %></td>
+                    <td><%= conge.statut %></td>
+                    <td>
+                        <% if (conge.statut === 'EN_ATTENTE') { %>
+                            <a href="/conges/<%= conge.id %>/edit">Modifier</a>
+
+                            <form action="/conges/<%= conge.id %>/delete" method="POST" style="display:inline;">
+                                <button type="submit">Supprimer</button>
+                            </form>
+                        <% } else { %>
+                            —
+                        <% } %>
+                    </td>
+                </tr>
+            <% }) %>
+        <% } else { %>
+            <tr>
+                <td colspan="6">Aucune demande trouvée</td>
+            </tr>
+        <% } %>
+    </tbody>
+
+
+</body>
+</html>

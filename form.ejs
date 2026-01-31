@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        <%= demande ? 'Modifier la demande de congé' : 'Nouvelle demande de congé' %>
+    </title>
+</head>
+<body>
+
+<h2 style="text-align:center;">
+    <%= demande ? 'Modifier la demande de congé' : 'Nouvelle demande de congé' %>
+</h2>
+
+<form 
+    action="<%= demande ? '/conges/' + demande.id : '/conges' %>" 
+    method="POST"
+>
+    <label>Code employé</label>
+    <input 
+        type="text" 
+        name="employee_code" 
+        required
+        value="<%= demande ? demande.employee_code : '' %>"
+    >
+
+    <label>Date de début</label>
+    <input 
+        type="date" 
+        name="start_date" 
+        required
+        value="<%= demande ? demande.start_date : '' %>"
+    >
+
+    <label>Date de fin</label>
+    <input 
+        type="date" 
+        name="end_date" 
+        required
+        value="<%= demande ? demande.end_date : '' %>"
+    >
+
+    <label>Motif</label>
+    <textarea name="motif" required>
+<%= demande ? demande.motif : '' %>
+    </textarea>
+
+    <button type="submit">
+        <%= demande ? 'Mettre à jour' : 'Envoyer la demande' %>
+    </button>
+</form>
+
+<a href="/demandes">⬅ Retour à la liste</a>
+
+</body>
+</html>
